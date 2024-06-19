@@ -88,14 +88,16 @@ function queueGattOperation(operation) {
 }
 
 // Send data to the micro:bit via UART
-async function sendUART(num) {
+async function sendUART(str) {
     if (!rxCharacteristic) {
         console.log("Cannot send data, device is not connected.");
         return;
     }
     
     let encoder = new TextEncoder();
-    let encodedData = encoder.encode(num + "\n");
+    let encodedData = encoder.encode(str + "\n");
+
+    console.log(str)
     
     queueGattOperation(() => rxCharacteristic.writeValue(encodedData)
         .then(() => console.log("Data sent"))

@@ -86,6 +86,10 @@ function onResults(results) {
                 }
             });
         }
+        let point = results.multiHandLandmarks[0]
+        let data = formatAndTrim(point.x)+formatAndTrim(point.y)+formatAndTrim(point.z)
+        console.log(point)
+        sendUART(data);
     }
     canvasCtx.restore();
     if (results.multiHandWorldLandmarks) {
@@ -105,7 +109,7 @@ function onResults(results) {
             });
         }
         grid.updateLandmarks(landmarks, connections, colors);
-        console.log(landmarks);
+        //console.log(landmarks);
     }
     else {
         grid.updateLandmarks([]);
