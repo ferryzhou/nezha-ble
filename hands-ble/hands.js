@@ -40,9 +40,11 @@ const videoElement = document.getElementsByClassName('input_video')[0];
 const canvasElement = document.getElementsByClassName('output_canvas')[0];
 const controlsElement = document.getElementsByClassName('control-panel')[0];
 const canvasCtx = canvasElement.getContext('2d');
-const config = { locateFile: (file) => {
+const config = {
+    locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${mpHands.VERSION}/${file}`;
-    } };
+    }
+};
 // We'll add this to our control panel later, but we'll save it here so we can
 // call tick() each time the graph runs.
 const fpsControl = new controls.FPS();
@@ -86,10 +88,12 @@ function onResults(results) {
                 }
             });
         }
-        let point = results.multiHandLandmarks[0]
-        let data = formatAndTrim(point.x)+formatAndTrim(point.y)+formatAndTrim(point.z)
-        console.log(point)
-        sendUART(data);
+        if (results.multiHandLandmarks.length > 0) {
+            let point = results.multiHandLandmarks[0]
+            let data = formatAndTrim(point.x) + formatAndTrim(point.y) + formatAndTrim(point.z)
+            console.log(point)
+            sendUART(data);
+        }
     }
     canvasCtx.restore();
     if (results.multiHandWorldLandmarks) {
@@ -121,59 +125,59 @@ hands.onResults(onResults);
 // options.
 new controls
     .ControlPanel(controlsElement, {
-    selfieMode: true,
-    maxNumHands: 2,
-    modelComplexity: 1,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
-})
+        selfieMode: true,
+        maxNumHands: 2,
+        modelComplexity: 1,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+    })
     .add([
-    new controls.StaticText({ title: 'MediaPipe Hands' }),
-    fpsControl,
-    new controls.Toggle({ title: 'Selfie Mode', field: 'selfieMode' }),
-    new controls.SourcePicker({
-        onFrame: async (input, size) => {
-            const aspect = size.height / size.width;
-            let width, height;
-            if (window.innerWidth > window.innerHeight) {
-                height = window.innerHeight;
-                width = height / aspect;
-            }
-            else {
-                width = window.innerWidth;
-                height = width * aspect;
-            }
-            canvasElement.width = width;
-            canvasElement.height = height;
-            await hands.send({ image: input });
-        },
-    }),
-    new controls.Slider({
-        title: 'Max Number of Hands',
-        field: 'maxNumHands',
-        range: [1, 4],
-        step: 1
-    }),
-    new controls.Slider({
-        title: 'Model Complexity',
-        field: 'modelComplexity',
-        discrete: ['Lite', 'Full'],
-    }),
-    new controls.Slider({
-        title: 'Min Detection Confidence',
-        field: 'minDetectionConfidence',
-        range: [0, 1],
-        step: 0.01
-    }),
-    new controls.Slider({
-        title: 'Min Tracking Confidence',
-        field: 'minTrackingConfidence',
-        range: [0, 1],
-        step: 0.01
-    }),
-])
+        new controls.StaticText({ title: 'MediaPipe Hands' }),
+        fpsControl,
+        new controls.Toggle({ title: 'Selfie Mode', field: 'selfieMode' }),
+        new controls.SourcePicker({
+            onFrame: async (input, size) => {
+                const aspect = size.height / size.width;
+                let width, height;
+                if (window.innerWidth > window.innerHeight) {
+                    height = window.innerHeight;
+                    width = height / aspect;
+                }
+                else {
+                    width = window.innerWidth;
+                    height = width * aspect;
+                }
+                canvasElement.width = width;
+                canvasElement.height = height;
+                await hands.send({ image: input });
+            },
+        }),
+        new controls.Slider({
+            title: 'Max Number of Hands',
+            field: 'maxNumHands',
+            range: [1, 4],
+            step: 1
+        }),
+        new controls.Slider({
+            title: 'Model Complexity',
+            field: 'modelComplexity',
+            discrete: ['Lite', 'Full'],
+        }),
+        new controls.Slider({
+            title: 'Min Detection Confidence',
+            field: 'minDetectionConfidence',
+            range: [0, 1],
+            step: 0.01
+        }),
+        new controls.Slider({
+            title: 'Min Tracking Confidence',
+            field: 'minTrackingConfidence',
+            range: [0, 1],
+            step: 0.01
+        }),
+    ])
     .on(x => {
-    const options = x;
-    videoElement.classList.toggle('selfie', options.selfieMode);
-    hands.setOptions(options);
-});
+        const options = x;
+        videoElement.classList.toggle('selfie', options.selfieMode);
+        hands.setOptions(options);
+    });
