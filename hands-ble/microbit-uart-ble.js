@@ -11,23 +11,6 @@ const UART_RX_CHARACTERISTIC_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 let uBitDevice;
 let rxCharacteristic;
 
-function setup() {
-  createCanvas(200, 200);
-
-  const connectButton = createButton("Connect");
-  connectButton.mousePressed(connectButtonPressed);
-
-  const disconnectButton = createButton("Disconnect");
-  disconnectButton.mousePressed(disconnectButtonPressed);
-
-  const pingButton = createButton("Ping");
-  pingButton.mousePressed(pingButtonPressed);
-}
-
-function draw() {
-  background(0);
-}
-
 async function connectButtonPressed() {
   try {
     console.log("Requesting Bluetooth Device...");
