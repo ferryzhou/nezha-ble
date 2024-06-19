@@ -79,3 +79,26 @@ function onTxCharacteristicValueChanged(event) {
     console.log("Shaken!");
   }
 }
+
+// Queue operations to handle GATT operations one at a time
+let queue = Promise.resolve();
+function queueGattOperation(operation) {
+    queue = queue.then(operation, operation);
+    return queue;
+}
+
+// Send data to the micro:bit via UART
+async function sendUART(num) {
+    if (!rxCharacteristic) {
+        console.log("Cannot send data, device is not connected.");
+        return;
+    }
+    
+    let encoder = new TextEncoder();
+    let encodedData = encoder.encode(num + "\n");
+    
+    queueGattOperation(() => rxCharacteristic.writeValue(encodedData)
+        .then(() => console.log("Data sent"))
+        .catch(error => console.error('Error sending data:', error)));
+}
+
