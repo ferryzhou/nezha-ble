@@ -1,4 +1,3 @@
-
 <!--
     MediaPipe Hands
     https://google.github.io/mediapipe/solutions/hands.html#javascript-solution-api
@@ -6,16 +5,25 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d@0.3/control_utils_3d.css" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.6/control_utils.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="hands.css" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.6/control_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d@0.3/control_utils_3d.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3/drawing_utils.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="ble.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d@0.3/control_utils_3d.css"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.6/control_utils.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.6/control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d@0.3/control_utils_3d.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3/drawing_utils.js"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/hands.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
@@ -25,54 +33,68 @@
 
 <body>
     <style>
-      .square-box {
-        width: 33%;
-        height: 0;
-        padding-top: 33%;
-        position: absolute;
-        right: 20px;
-        top: 20px;
-      }
-  
-      .landmark-grid-container {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top:0;
-        left:0;
-        background-color: #99999999;
-      }
+        .square-box {
+            width: 33%;
+            height: 0;
+            padding-top: 33%;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .landmark-grid-container {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #99999999;
+        }
     </style>
     <div class="container">
-      <video class="input_video"></video>
-      <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-      <div class="loading">
-        <div class="spinner"></div>
-        <div class="message">
-          Loading
+        <video class="input_video"></video>
+        <canvas class="output_canvas" width="1280px" height="720px"></canvas>
+        <div class="loading">
+            <div class="spinner"></div>
+            <div class="message">
+                Loading
+            </div>
         </div>
-      </div>
-      <a class="abs logo" href="http://www.mediapipe.dev" target="_blank">
-        <div style="display: flex;align-items: center;bottom: 0;right: 10px;">
-          <img class="logo" src="./img/logo_white.png" alt="" style="
+        <a class="abs logo" href="http://www.mediapipe.dev" target="_blank">
+            <div style="display: flex;align-items: center;bottom: 0;right: 10px;">
+                <img class="logo" src="./img/logo_white.png" alt="" style="
             height: 50px;">
-          <span class="title">MediaPipe</span>
+                <span class="title">MediaPipe</span>
+            </div>
+        </a>
+        <div class="shoutout">
+            <div>
+                <a href="https://solutions.mediapipe.dev/pose" target="_blank">
+                    Click here for more info
+                </a>
+            </div>
         </div>
-      </a>
-      <div class="shoutout">
-        <div>
-          <a href="https://solutions.mediapipe.dev/pose" target="_blank">
-            Click here for more info
-          </a>
+        <div id="menu_left">
+            <button id="robotShow" onclick="connectButtonPressed()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#fff">
+                    <path class="st0"
+                        d="M63.5 62.7c-1 0-1.7 0.8-1.8 1.7v2.9H38.6v-2.9c0-1-0.8-1.7-1.7-1.7 -1 0-1.7 0.8-1.7 1.7v4.7c0 1 0.8 1.7 1.7 1.7h26.7c1 0 1.7-0.8 1.7-1.7v-4.7C65.2 63.4 64.5 62.7 63.5 62.7z" />
+                    <path class="st0"
+                        d="M43.3 49.5c0-3.1-2.5-5.6-5.6-5.6 -3.1 0-5.6 2.5-5.6 5.6 0 0 0 0 0 0 0 3.1 2.5 5.6 5.6 5.6C40.8 55 43.3 52.5 43.3 49.5z" />
+                    <rect x="48.2" y="54.3" class="st0" width="3.6" height="7.2" />
+                    <path class="st0"
+                        d="M50 0C22.4 0 0 22.4 0 50c0 27.6 22.4 50 50 50s50-22.4 50-50C100 22.4 77.6 0 50 0zM73.3 73c0 2.5-2 4.5-4.5 4.5H31.1c-2.5 0-4.5-2-4.5-4.5V35.2c0-2.5 2-4.5 4.5-4.5h2.1v-4.5c0-2.5 2-4.5 4.5-4.5 2.5 0 4.5 2 4.5 4.5v4.5h15.2v-4.5c0-2.5 2-4.5 4.5-4.5 2.5 0 4.5 2 4.5 4.5v4.5h2.6c2.5 0 4.5 2 4.5 4.5V73z" />
+                    <path class="st0"
+                        d="M61.8 43.9c-3.1 0-5.6 2.5-5.6 5.6l3.2 0c0-1.3 1.1-2.3 2.3-2.3 1.3 0 2.3 1.1 2.3 2.3h3.2C67.4 46.4 64.9 43.9 61.8 43.9z" />
+                </svg>
+            </button>
         </div>
-      </div>
-    </div>
-    <div class="control-panel">
-    </div>
-    <div class='square-box'>
-      <div class="landmark-grid-container">
-      </div>
-    </div>
+        <div class="control-panel">
+        </div>
+        <div class='square-box'>
+            <div class="landmark-grid-container">
+            </div>
+        </div>
 </body>
 
 </html>

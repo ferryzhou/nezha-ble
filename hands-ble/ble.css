@@ -1,0 +1,60 @@
+.robotShow_connected {
+    border: 2px solid #fff !important;
+        padding: 5% 5% 0% 5% !important;
+        border-radius: 50%;
+        scale: 1.2;
+        animation-name: rotate;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+  }
+  
+  #menu_left button {
+    width: 45px;
+    height: 45px;
+    outline: none;
+    border: none;
+    background-color: #E94E0F;
+    border-radius: 50%;
+    transition: all .1s ease-in-out;
+    padding: 0;
+    margin-bottom: 2vh;
+    cursor: pointer;
+    transform:scale(1, 1);
+    transition: all .1s ease-in-out;
+  }
+  
+  #menu_left button:hover {
+    transform:scale(1.1, 1.1);
+    transition: all .1s ease-in-out;
+  }
+
+  #menu_left {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 5002;
+    width: 45px;
+  }
+  
+  #menu_left button {
+    width: 45px;
+    height: 45px;
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 0;
+    margin-bottom: 2vh;
+    cursor: pointer;
+  }
+  
+  #menu_left button:hover, #menu_left button:active {
+    transform: scale(1.1);  /* Consistent scale for hover and active */
+  }
+  
+  
+  
+  
+  #menu_left button:active {
+    transform:scale(1.3, 1.3);
+    transition: all .1s ease-in-out;
+  }
+  
