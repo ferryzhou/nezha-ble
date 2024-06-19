@@ -102,3 +102,11 @@ async function sendUART(num) {
         .catch(error => console.error('Error sending data:', error)));
 }
 
+function formatAndTrim(value) {
+    // First, ensure the value is a number and clamp it within the range of 0 to 99
+    let trimmedValue = Math.max(0, Math.min(99, value));
+  
+    // Now, format the number to be always two digits
+    return trimmedValue.toString().padStart(2, '0');
+  }
+  

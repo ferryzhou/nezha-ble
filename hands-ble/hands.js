@@ -105,6 +105,7 @@ function onResults(results) {
             });
         }
         grid.updateLandmarks(landmarks, connections, colors);
+        console.log(landmarks);
     }
     else {
         grid.updateLandmarks([]);
