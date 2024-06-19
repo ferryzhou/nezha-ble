@@ -1,5 +1,11 @@
 # nezha-ble
 
+## Demos
+
+- https://ferryzhou.github.io/nezha-ble/hands/index.htm
+- https://ferryzhou.github.io/nezha-ble/ble/index.htm
+- https://ferryzhou.github.io/nezha-ble/hands-ble/index.htm
+
 ## References
 
 Micro:bit Bluetooth
