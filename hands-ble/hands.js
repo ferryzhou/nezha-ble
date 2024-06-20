@@ -100,7 +100,10 @@ function onResults(results) {
         if (results.multiHandLandmarks.length > 0) {
             let point = results.multiHandLandmarks[0]
             let data = formatAndTrim(point.x * 100) + formatAndTrim(point.y * 100) + formatAndTrim(point.z * 100)
-            console.log(point)
+            console.log(point.x)
+            console.log(point.y)
+            console.log(point.z)
+            console.log(data)
             sendUART(data);
         }
     }
