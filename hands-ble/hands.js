@@ -65,6 +65,15 @@ const grid = new controls3d.LandmarkGrid(landmarkContainer, {
     showHidden: false,
     centered: false,
 });
+
+function formatAndTrim(value) {
+    // First, ensure the value is a number and clamp it within the range of 0 to 99
+    let trimmedValue = Math.max(0, Math.min(99, value));
+
+    // Now, format the number to be always two digits
+    return trimmedValue.toString().padStart(2, '0');
+}
+
 function onResults(results) {
     // Hide the spinner.
     document.body.classList.add('loaded');
@@ -90,7 +99,7 @@ function onResults(results) {
         }
         if (results.multiHandLandmarks.length > 0) {
             let point = results.multiHandLandmarks[0]
-            let data = formatAndTrim(point.x) + formatAndTrim(point.y) + formatAndTrim(point.z)
+            let data = formatAndTrim(point.x * 100) + formatAndTrim(point.y * 100) + formatAndTrim(point.z * 100)
             console.log(point)
             sendUART(data);
         }
