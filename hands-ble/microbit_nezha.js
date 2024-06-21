@@ -6,7 +6,6 @@ bluetooth.onBluetoothDisconnected(function () {
 })
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () {
     receivedString = bluetooth.uartReadUntil(serial.delimiters(Delimiters.NewLine))
-    PlanetX_Display.showUserText(1, receivedString)
     x = parseFloat(receivedString.substr(0, 2))
     y = parseFloat(receivedString.substr(2, 2))
     z = parseFloat(receivedString.substr(4, 2))
