@@ -24,6 +24,8 @@ For Makecode bluetooth extension, remember add the following code to pxt.json:
     }
 ```
 
+To find pxt.json, first add Bluetooth extension, then turn on js mode, click Explorer button in left panel.
+
 ## References
 
 Micro:bit Bluetooth
