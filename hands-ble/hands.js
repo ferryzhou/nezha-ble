@@ -108,6 +108,9 @@ function onResults(results) {
             console.log(data)
             sendUART(data);
         }
+    } else { // no landmarks?
+        console.log('no landmarks, send 000000')
+        sendUART('000000');    
     }
     canvasCtx.restore();
     if (results.multiHandWorldLandmarks) {
